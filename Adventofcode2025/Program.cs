@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
-Adventofcode2025Main.Runday(4);
-
+Adventofcode2025Main.Menu();
 static class Adventofcode2025Main
 {
     const string defaultBasePath = @"Inputs\";
@@ -11,17 +10,10 @@ static class Adventofcode2025Main
     public static void Menu()
     {
         string? response = "c";
-
+        int dayResponse = 0;
         while (response?.ToLower() != "e")
         {
-            if (response != null && response.ToLower() == "r")
-            {
-                Console.WriteLine("Enter a specific day to run or press enter to run all days:");
-                int dayResponse = Convert.ToInt32(Console.ReadLine());
-                Runday(dayResponse > 25 ? 0 : dayResponse);
-                return;
-            }
-            else if (response != null && response.ToLower() == "b")
+            if (response != null && response.ToLower() == "b")
             {
                 Console.WriteLine("enter new base path:");
                 string? newBasePath = Console.ReadLine();
@@ -58,12 +50,16 @@ static class Adventofcode2025Main
             else if (response != null && response.ToLower() == "c")
             {
                 Console.Clear();
-                Console.WriteLine("change nothing and run (r)");
+                Console.WriteLine("Enter a specific day to run or press enter to run all days");
                 Console.WriteLine("change base path (b)");
                 Console.WriteLine("change file name prefix (f)");
                 Console.WriteLine("View default path and current path (p)");
                 Console.WriteLine("clear screen (c)");
                 Console.WriteLine("end (e)");
+            }
+            else if (response == "" || int.TryParse(response, out dayResponse))
+            {
+                Runday(dayResponse > 25 ? 0 : dayResponse);
             }
 
             response = Console.ReadLine();
@@ -92,7 +88,7 @@ static class Adventofcode2025Main
         {
             string name = $"Part{part}";
             MethodInfo? method = type?.GetMethod(name);
-            if(method != null)
+            if (method != null)
             {
                 var input = File.ReadLines($"{basePath}{fileNamePrefix}{day}.txt");
                 object? result = method?.Invoke(null, new object[] { input });
