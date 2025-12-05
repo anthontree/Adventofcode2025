@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
-//Adventofcode2025Main.Menu();
-Adventofcode2025Main.Runday(5);
+Adventofcode2025Main.Menu();
+
 static class Adventofcode2025Main
 {
     const string defaultBasePath = @"Inputs\";
